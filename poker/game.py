@@ -1,7 +1,7 @@
 from pokerkit import Automation, Mode, NoLimitTexasHoldem
 import pdb
 import typing
-import state_vector
+from poker import state_vector
 
 big_blind = 100
 small_blind = int(big_blind / 2)
@@ -71,8 +71,7 @@ class Game:
     def get_state(self):
         player_seat = self.state.actor_index
         if player_seat == None:
-            print("No player is acting. Why did we ask for state here?")
-            return
+            raise Exception("No player is acting. Why did we ask for state here?")
 
         player_state = self.player_state_vectors[player_seat]
         player_state.update_vector(self.state)
