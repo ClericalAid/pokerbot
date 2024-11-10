@@ -11,6 +11,9 @@ def card_to_vector(card):
     return [rank_vector, suit_vector]
 
 class PlayerStateVector:
+    INDEX_HOLE_CARDS = 0
+    INDEX_PLAYER_SEAT = 1
+    INDEX_STACK_SIZE = 2
     def __init__(self, player_seat):
         self.state_vector = [
             [], # hole_cards [[rank, suit],[rank, suit]]
@@ -24,13 +27,13 @@ class PlayerStateVector:
         hole_cards_vector = []
         for card in hole_cards:
             hole_cards_vector.append(card_to_vector(card))
-        self.state_vector[0] = hole_cards_vector
-        self.state_vector[1] = self.player_seat
-        self.state_vector[2] = state.stacks[self.player_seat]
+        self.state_vector[self.INDEX_HOLE_CARDS] = hole_cards_vector
+        self.state_vector[self.INDEX_PLAYER_SEAT] = self.player_seat
+        self.state_vector[self.INDEX_STACK_SIZE] = state.stacks[self.player_seat]
         self.player_seat = self.player_seat
 
     def update_vector(self, state):
-        self.state_vector[2] = state.stacks[self.player_seat]
+        self.state_vector[self.INDEX_STACK_SIZE] = state.stacks[self.player_seat]
 
 
 class CommonStateVector:
